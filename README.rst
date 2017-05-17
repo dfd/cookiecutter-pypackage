@@ -2,6 +2,8 @@
 Cookiecutter PyPackage
 ======================
 
+Modified by dfd to follow advice found here with regard to packaging and testing: https://hynek.me/articles/testing-packaging/
+
 .. image:: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/shield.svg
      :target: https://pyup.io/repos/github/audreyr/cookiecutter-pypackage/
      :alt: Updates
