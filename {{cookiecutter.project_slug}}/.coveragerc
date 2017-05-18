@@ -1,0 +1,12 @@
+[run]
+branch = True
+source = {{ cookiecutter.project_slug }}
+
+[paths]
+source =
+   src/{{ cookiecutter.project_slug }}
+   .tox/*/lib/python*/site-packages/{{ cookiecutter.project_slug }}
+;   .tox/pypy*/site-packages/{{ cookiecutter.project_slug }}
+
+[report]
+show_missing = True
