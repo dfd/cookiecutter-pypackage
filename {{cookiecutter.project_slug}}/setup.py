@@ -2,6 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from setuptools import setup, find_packages
+import os, sys
+
+base_dir = os.path.dirname(__file__)
+src_dir = os.path.join(base_dir, "src")
+
+sys.path.insert(0, src_dir)
+
+about = {}
+with open(os.path.join(src_dir, "{{ cookiecutter.project_slug }}", "__about__.py")) as f:
+    exec(f.read(), about)
 
 with open('README.rst') as readme_file:
     readme = readme_file.read()
@@ -17,7 +27,7 @@ requirements = [
 ]
 
 test_requirements = [
-    # TODO: put package test requirements here
+    'pytest'
 ]
 
 {%- set license_classifiers = {
@@ -29,13 +39,16 @@ test_requirements = [
 } %}
 
 setup(
-    name='{{ cookiecutter.project_slug }}',
-    version='{{ cookiecutter.version }}',
-    description="{{ cookiecutter.project_short_description }}",
+    name=about['__title__'],
+    version=about['__version__'],
+    description=about['__summary__'],
     long_description=readme + '\n\n' + history,
-    author="{{ cookiecutter.full_name.replace('\"', '\\\"') }}",
-    author_email='{{ cookiecutter.email }}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.project_slug }}',
+    author=about['__author__'],
+    author_email=about['__email__'],
+    url=about['__uri__'],
+{%- if cookiecutter.open_source_license in license_classifiers %}
+    license=about['__license__'],
+{%- endif %}
     packages=find_packages(where="src"),
     package_dir={"": "src"},
     {%- if 'no' not in cookiecutter.command_line_interface|lower %}
@@ -47,9 +60,6 @@ setup(
     {%- endif %}
     include_package_data=True,
     install_requires=requirements,
-{%- if cookiecutter.open_source_license in license_classifiers %}
-    license="{{ cookiecutter.open_source_license }}",
-{%- endif %}
     zip_safe=False,
     keywords='{{ cookiecutter.project_slug }}',
     classifiers=[
@@ -66,6 +76,7 @@ setup(
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
     ],
     test_suite='tests',
     tests_require=test_requirements

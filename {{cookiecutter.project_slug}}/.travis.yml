@@ -31,6 +31,7 @@ notifications:
 # After you create the Github repo and add it to Travis, run the
 # travis_pypi_setup.py script to finish PyPI deployment setup
 deploy:
+  skip_upload_docs: true
   provider: pypi
   distributions: sdist bdist_wheel
   user: {{ cookiecutter.pypi_username }}
